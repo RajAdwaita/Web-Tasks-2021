@@ -2,6 +2,8 @@ const question = document.getElementById("question");
 
 const choices = Array.from(document.getElementsByClassName('choice-text'));
 
+const progressText = document.getElementById('progressText');
+const progressBarFull = document.getElementById('progressBarFull');
 
 const questionCounterText = document.getElementById('questionCounter');
 const scoreText = document.getElementById('score');
@@ -124,6 +126,8 @@ questionCounter = 0;
 getNewQuestion = () => {
 
     if (availableQuestions.length == 0 || questionCounter > MAX_QUESTIONS) {
+        localStorage.setItem('mostRecentScore', score);
+
         return window.location.assign("/end.html");
     }
 
@@ -131,9 +135,9 @@ getNewQuestion = () => {
     questionCounter++;
     // questionCounterText.innerText = questionCounter + '/' + MAX_QUESTIONS
 
-    questionCounterText.innerText = `${questionCounter}/${MAX_QUESTIONS}`
+    progressText.innerText = `QUESTION ${questionCounter}/${MAX_QUESTIONS}`
 
-
+    progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
 
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     // const questionIndex = questions[questionCounter]["questionId"];
@@ -172,6 +176,8 @@ choices.forEach(choice => {
             // score = score + 3;
             // scoreText.innerText = score;
             incrementScore(CORRECT_BONUS);
+            // progressBarFull.style.backgroundColor = "red";
+
         }
 
 
