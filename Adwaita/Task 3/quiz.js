@@ -16,7 +16,7 @@ let acceptingAnswers = true;
 let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
-
+var secs = 50;
 const CORRECT_BONUS = 1;
 const MAX_QUESTIONS = 10;
 let questions = [
@@ -155,6 +155,20 @@ getNewQuestion = () => {
     acceptingAnswers = true;
 
 };
+
+
+var id = 0;
+function calc() {
+    document.getElementById('timer').innerHTML = secs;
+    secs--;
+    if (secs == 0)
+        return window.location.assign("/score.html");
+
+
+}
+function start() {
+    id = window.setInterval(calc, 1000);
+}
 
 
 choices.forEach(choice => {
